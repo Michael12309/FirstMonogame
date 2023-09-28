@@ -23,3 +23,4 @@
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/FirstGame.pdb
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/FirstGame.genruntimeconfig.cache
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/ref/FirstGame.dll
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/The_Knight_Idle.xnb
