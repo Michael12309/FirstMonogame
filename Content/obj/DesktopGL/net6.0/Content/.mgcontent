@@ -4,9 +4,15 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/00042.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/00043.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/cat.png</File>
     <File>/home/michael/Desktop/Monogame/FirstGame/Content/The_Knight_Idle.webp</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

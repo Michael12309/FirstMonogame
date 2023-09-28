@@ -9,10 +9,16 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    Texture2D playerTexture;
+    Texture2D backgroundTexture;
+    Texture2D backgroundTexture2;
+
     Vector2 playerPosition;
     float playerSpeed;
     bool flipPlayer;
+
+    Animation playerAnimation;
+
+    float animationTimer;
 
     public Game1()
     {
@@ -25,11 +31,18 @@ public class Game1 : Game
     {
         // TODO: Add your initialization logic here
 
-        playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
-                                    _graphics.PreferredBackBufferHeight / 2);
+        _graphics.PreferredBackBufferWidth = 1280;
+        _graphics.PreferredBackBufferHeight = 720;
+        _graphics.ApplyChanges();
 
-        playerSpeed = .5F;
-        flipPlayer = false;
+        playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
+                                    (int)(_graphics.PreferredBackBufferHeight / 4 * 2.82));
+
+        playerSpeed = .3F;
+        flipPlayer = true;
+        playerAnimation = new Animation();
+        animationTimer = 0F;
+
         base.Initialize();
     }
 
@@ -38,7 +51,13 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        playerTexture = Content.Load<Texture2D>("The_Knight_Idle");
+        backgroundTexture = Content.Load<Texture2D>("00042");
+        backgroundTexture2 = Content.Load<Texture2D>("00043");
+        playerAnimation.LoadSpriteSheet(
+            Content,
+            "cat",
+            new Rectangle(0, 0, 140, 87),
+            9);
     }
 
     protected override void Update(GameTime gameTime)
@@ -46,19 +65,37 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        animationTimer += gameTime.ElapsedGameTime.Milliseconds;
+        if (animationTimer > 80)
+        {
+            animationTimer = 0;
+        }
+
         // TODO: Add your update logic here
         KeyboardState kstate = Keyboard.GetState();
 
         if (kstate.IsKeyDown(Keys.A))
         {
             playerPosition.X -= playerSpeed * (float)gameTime.ElapsedGameTime.Milliseconds;
-            flipPlayer = true;
+            flipPlayer = false;
+
+            if (animationTimer == 0)
+            {
+                playerAnimation.Advance();
+
+            }
         }
 
         if (kstate.IsKeyDown(Keys.D))
         {
             playerPosition.X += playerSpeed * (float)gameTime.ElapsedGameTime.Milliseconds;
-            flipPlayer = false;
+            flipPlayer = true;
+
+            if (animationTimer == 0)
+            {
+                playerAnimation.Advance();
+
+            }
         }
 
         base.Update(gameTime);
@@ -66,17 +103,18 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.ForestGreen);
+        GraphicsDevice.Clear(Color.White);
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
+        _spriteBatch.Draw(backgroundTexture2, Vector2.Zero, Color.White);
         _spriteBatch.Draw(
-            playerTexture,
+            playerAnimation.spriteSheet,
             playerPosition,
-            null,
+            sourceRectangle: playerAnimation.getFrameBoundingBox(),
             Color.White,
             0f,
-            new Vector2(playerTexture.Width / 2, playerTexture.Height / 2),
+            new Vector2(playerAnimation.getFrameBoundingBox().Width / 2, playerAnimation.getFrameBoundingBox().Height / 2),
             Vector2.One,
             flipPlayer ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
             0f);
