@@ -1,28 +1,38 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.Collisions;
+using MonoGame.Extended.ViewportAdapters;
 
 namespace FirstGame;
 
+
 public class Game1 : Game
 {
+    const int ScreenWidth = 1280;
+    const int ScreenHeight = 720;
+
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    private OrthographicCamera _camera;
 
-    Texture2D backgroundTexture;
-    Texture2D backgroundTexture2;
+    Texture2D BackgroundTexture;
+    Vector2 ScreenCenter;
 
-    Vector2 playerPosition;
-    float playerSpeed;
-    bool flipPlayer;
+    PlayerEntity PlayerEntity;
 
-    Animation playerAnimation;
+    private readonly List<IEntity> _entities = new List<IEntity>();
+    private readonly CollisionComponent _collisionComponent;
 
-    float animationTimer;
+    float PlayerSpeed;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
+        _collisionComponent = new CollisionComponent(new RectangleF(0, 0, ScreenWidth, ScreenHeight));
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -31,17 +41,25 @@ public class Game1 : Game
     {
         // TODO: Add your initialization logic here
 
-        _graphics.PreferredBackBufferWidth = 1280;
-        _graphics.PreferredBackBufferHeight = 720;
+        _graphics.PreferredBackBufferWidth = ScreenWidth;
+        _graphics.PreferredBackBufferHeight = ScreenHeight;
         _graphics.ApplyChanges();
 
-        playerPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
-                                    (int)(_graphics.PreferredBackBufferHeight / 4 * 2.82));
+        ScreenCenter = new Vector2(_graphics.PreferredBackBufferWidth / 2,
+                                    _graphics.PreferredBackBufferHeight / 2);
 
-        playerSpeed = .3F;
-        flipPlayer = true;
-        playerAnimation = new Animation();
-        animationTimer = 0F;
+        PlayerSpeed = 0.3f;
+
+        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(ScreenCenter.X, ScreenCenter.Y, 40, 30));
+        _entities.Add(PlayerEntity);
+        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 100, ScreenCenter.Y + 100, 200, 20)));
+        foreach (IEntity entity in _entities)
+        {
+            _collisionComponent.Insert(entity);
+        }
+
+        var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+        _camera = new OrthographicCamera(viewportAdapter);
 
         base.Initialize();
     }
@@ -50,74 +68,42 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // TODO: use this.Content to load your game content here
-        backgroundTexture = Content.Load<Texture2D>("00042");
-        backgroundTexture2 = Content.Load<Texture2D>("00043");
-        playerAnimation.LoadSpriteSheet(
-            Content,
-            "cat",
-            new Rectangle(0, 0, 140, 87),
-            9);
+        BackgroundTexture = Content.Load<Texture2D>("00042");
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        animationTimer += gameTime.ElapsedGameTime.Milliseconds;
-        if (animationTimer > 80)
-        {
-            animationTimer = 0;
-        }
-
-        // TODO: Add your update logic here
         KeyboardState kstate = Keyboard.GetState();
 
-        if (kstate.IsKeyDown(Keys.A))
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kstate.IsKeyDown(Keys.Escape))
+            Exit();
+
+        foreach (IEntity entity in _entities)
         {
-            playerPosition.X -= playerSpeed * (float)gameTime.ElapsedGameTime.Milliseconds;
-            flipPlayer = false;
-
-            if (animationTimer == 0)
-            {
-                playerAnimation.Advance();
-
-            }
+            entity.Update(gameTime);
         }
+        _collisionComponent.Update(gameTime);
 
-        if (kstate.IsKeyDown(Keys.D))
-        {
-            playerPosition.X += playerSpeed * (float)gameTime.ElapsedGameTime.Milliseconds;
-            flipPlayer = true;
-
-            if (animationTimer == 0)
-            {
-                playerAnimation.Advance();
-
-            }
-        }
+        _camera.Position = PlayerEntity.Position - ScreenCenter;
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.White);
+        var transformMatrix = _camera.GetViewMatrix();
+
+        GraphicsDevice.Clear(Color.Black);
 
         // TODO: Add your drawing code here
-        _spriteBatch.Begin();
-        _spriteBatch.Draw(backgroundTexture2, Vector2.Zero, Color.White);
-        _spriteBatch.Draw(
-            playerAnimation.spriteSheet,
-            playerPosition,
-            sourceRectangle: playerAnimation.getFrameBoundingBox(),
-            Color.White,
-            0f,
-            new Vector2(playerAnimation.getFrameBoundingBox().Width / 2, playerAnimation.getFrameBoundingBox().Height / 2),
-            Vector2.One,
-            flipPlayer ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-            0f);
+        _spriteBatch.Begin(transformMatrix: transformMatrix);
+        _spriteBatch.Draw(BackgroundTexture, Vector2.Zero, Color.White);
+
+        foreach (IEntity entity in _entities)
+        {
+            entity.Draw(_spriteBatch);
+        }
+
         _spriteBatch.End();
 
         base.Draw(gameTime);

@@ -23,7 +23,9 @@
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/FirstGame.pdb
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/FirstGame.genruntimeconfig.cache
 /home/michael/Desktop/Monogame/FirstGame/obj/Debug/net6.0/ref/FirstGame.dll
-/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/The_Knight_Idle.xnb
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/cat.xnb
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/00042.xnb
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/00043.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/MonoGame.Extended.dll
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Newtonsoft.Json.dll
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/MonoGame.Extended.Collisions.dll

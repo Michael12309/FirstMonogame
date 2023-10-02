@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "a6UzjqdCKj9BJefKUG67e8L3OqLUr03XVScrwkfJjiplx38gzUOfFG6gWLf4mpxnjMYfy2DU0CTZAn2t72JRzA==",
+  "dgSpecHash": "PsEgcfhQo7t2TsyUpadFxv+PzaDeCIb/daCJZ5CDmkZXQkesQ3dxYXefAcmfp4/5kNnCeJELsiJAthTMDkpP8g==",
   "success": true,
   "projectFilePath": "/home/michael/Desktop/Monogame/FirstGame/FirstGame.csproj",
   "expectedPackageFiles": [
     "/home/michael/.nuget/packages/monogame.content.builder.task/3.8.1.303/monogame.content.builder.task.3.8.1.303.nupkg.sha512",
-    "/home/michael/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
+    "/home/michael/.nuget/packages/monogame.extended/3.8.0/monogame.extended.3.8.0.nupkg.sha512",
+    "/home/michael/.nuget/packages/monogame.extended.collisions/3.8.0/monogame.extended.collisions.3.8.0.nupkg.sha512",
+    "/home/michael/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512",
+    "/home/michael/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }
