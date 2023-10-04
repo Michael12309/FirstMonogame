@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +18,13 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private OrthographicCamera _camera;
 
-    Texture2D BackgroundTexture;
+    Texture2D BackgroundLayerSix;
+    Texture2D BackgroundLayerFive;
+    Texture2D BackgroundLayerFour;
+    Texture2D BackgroundLayerThree;
+    Texture2D BackgroundLayerPlatform;
+    Texture2D BackgroundLayerOne;
+
     Vector2 ScreenCenter;
 
     PlayerEntity PlayerEntity;
@@ -32,15 +37,13 @@ public class Game1 : Game
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _collisionComponent = new CollisionComponent(new RectangleF(0, 0, ScreenWidth, ScreenHeight));
+        _collisionComponent = new CollisionComponent(new RectangleF(0, 0, ScreenWidth * 2, ScreenHeight));
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
         _graphics.PreferredBackBufferWidth = ScreenWidth;
         _graphics.PreferredBackBufferHeight = ScreenHeight;
         _graphics.ApplyChanges();
@@ -50,9 +53,9 @@ public class Game1 : Game
 
         PlayerSpeed = 0.3f;
 
-        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(0, 0, 70, 30));
+        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(0, 0, 70, 35));
         _entities.Add(PlayerEntity);
-        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 400, ScreenCenter.Y + 300, 2000, 20)));
+        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 1000, ScreenCenter.Y + 100, 2000, 20)));
         foreach (IEntity entity in _entities)
         {
             _collisionComponent.Insert(entity);
@@ -68,7 +71,12 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        BackgroundTexture = Content.Load<Texture2D>("00042");
+        BackgroundLayerSix = Content.Load<Texture2D>("sixth-layer");
+        BackgroundLayerFive = Content.Load<Texture2D>("fifth-layer");
+        BackgroundLayerFour = Content.Load<Texture2D>("fourth-layer");
+        BackgroundLayerThree = Content.Load<Texture2D>("third-layer");
+        BackgroundLayerPlatform = Content.Load<Texture2D>("platform-layer");
+        BackgroundLayerOne = Content.Load<Texture2D>("first-layer");
     }
 
     protected override void Update(GameTime gameTime)
@@ -84,7 +92,7 @@ public class Game1 : Game
         }
         _collisionComponent.Update(gameTime);
 
-        _camera.Position = PlayerEntity.Position - ScreenCenter;
+        _camera.Position = new Vector2(PlayerEntity.Position.X - ScreenCenter.X, _camera.Position.Y);
 
         base.Update(gameTime);
     }
@@ -95,9 +103,14 @@ public class Game1 : Game
 
         GraphicsDevice.Clear(Color.Black);
 
-        // TODO: Add your drawing code here
-        _spriteBatch.Begin(transformMatrix: transformMatrix);
-        _spriteBatch.Draw(BackgroundTexture, Vector2.Zero, Color.White);
+        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, transformMatrix: transformMatrix);
+
+        _spriteBatch.Draw(BackgroundLayerSix, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.6F);
+        _spriteBatch.Draw(BackgroundLayerFive, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.5F);
+        _spriteBatch.Draw(BackgroundLayerFour, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.4F);
+        _spriteBatch.Draw(BackgroundLayerThree, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.3F);
+        _spriteBatch.Draw(BackgroundLayerPlatform, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.2F);
+        _spriteBatch.Draw(BackgroundLayerOne, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.1F);
 
         foreach (IEntity entity in _entities)
         {

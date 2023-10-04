@@ -29,3 +29,9 @@
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Newtonsoft.Json.dll
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/MonoGame.Extended.Collisions.dll
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/cat-spritesheet.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/fifth-layer.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/fourth-layer.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/platform-layer.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/sixth-layer.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/third-layer.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/first-layer.xnb

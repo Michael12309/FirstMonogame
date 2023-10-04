@@ -1,4 +1,3 @@
-using System;
 using FirstGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,7 +51,7 @@ public class PlayerEntity : IEntity
             new Vector2(0, 0),
             Vector2.One,
             _flipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
-            0f);
+            0.15F);
 
         spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
     }

@@ -5,8 +5,20 @@
   <Config />
   <SourceFiles>
     <File>/home/michael/Desktop/Monogame/FirstGame/Content/cat-spritesheet.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/fifth-layer.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/fourth-layer.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/platform-layer.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/sixth-layer.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/third-layer.png</File>
+    <File>/home/michael/Desktop/Monogame/FirstGame/Content/first-layer.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
