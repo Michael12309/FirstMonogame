@@ -6,36 +6,54 @@ namespace FirstGame;
 
 public class Animation
 {
+    private int _spriteCount;
+    private int _spriteIndex;
+    private int _spriteRow;
+    private int _millisecondTimer;
+
     public Texture2D spriteSheet;
-    private Rectangle frameBoundingBox;
-    private int spriteCount;
-    private int spriteIndex;
+    public Rectangle FrameBoundingBox { get; set; }
+
+    public int MillisecondTimeout { get; set; }
 
     public Animation()
     {
-
+        _millisecondTimer = 0;
+        _spriteRow = 0;
+        _spriteIndex = 0;
     }
 
     public void LoadSpriteSheet(ContentManager content, string assetName, Rectangle spriteSize, int spriteCount)
     {
         spriteSheet = content.Load<Texture2D>(assetName);
-        frameBoundingBox = spriteSize;
-        this.spriteCount = spriteCount;
-        spriteIndex = 0;
+        FrameBoundingBox = spriteSize;
+        _spriteCount = spriteCount;
     }
 
-    public void Advance()
+    public void Update(GameTime gameTime)
     {
-        spriteIndex++;
-        if (spriteIndex >= spriteCount)
+        _millisecondTimer += gameTime.ElapsedGameTime.Milliseconds;
+        if (_millisecondTimer < MillisecondTimeout)
         {
-            spriteIndex = 0;
+            return;
         }
-        frameBoundingBox = new Rectangle(spriteIndex * frameBoundingBox.Width, frameBoundingBox.Y, frameBoundingBox.Width, frameBoundingBox.Height);
+        _millisecondTimer = 0;
+
+        _spriteIndex++;
+        if (_spriteIndex >= _spriteCount)
+        {
+            _spriteIndex = 0;
+        }
+        FrameBoundingBox = new Rectangle(_spriteIndex * FrameBoundingBox.Width, _spriteRow * FrameBoundingBox.Height, FrameBoundingBox.Width, FrameBoundingBox.Height);
     }
 
-    public Rectangle getFrameBoundingBox()
+    public void SetRow(int row)
     {
-        return frameBoundingBox;
+        _spriteRow = row;
+    }
+
+    public void Restart()
+    {
+        _spriteIndex = 0;
     }
 }

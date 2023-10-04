@@ -1,3 +1,2 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/home/michael/Desktop/Monogame/FirstGame/Content/00042.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/Content/00042.xnb","TextureProcessor","Texture2DContent",391841,3686485,0.186729
-"/home/michael/Desktop/Monogame/FirstGame/Content/cat.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/Content/cat.xnb","TextureProcessor","Texture2DContent",5397,438565,0.1116683
+"/home/michael/Desktop/Monogame/FirstGame/Content/cat-spritesheet.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/Content/cat-spritesheet.xnb","TextureProcessor","Texture2DContent",7385,877045,0.1171182

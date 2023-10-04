@@ -50,9 +50,9 @@ public class Game1 : Game
 
         PlayerSpeed = 0.3f;
 
-        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(ScreenCenter.X, ScreenCenter.Y, 40, 30));
+        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(0, 0, 70, 30));
         _entities.Add(PlayerEntity);
-        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 100, ScreenCenter.Y + 100, 200, 20)));
+        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 400, ScreenCenter.Y + 300, 2000, 20)));
         foreach (IEntity entity in _entities)
         {
             _collisionComponent.Insert(entity);
