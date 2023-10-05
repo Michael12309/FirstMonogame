@@ -34,6 +34,8 @@ public class Game1 : Game
 
     float PlayerSpeed;
 
+    private TileMap _tileMap;
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -46,16 +48,16 @@ public class Game1 : Game
     {
         _graphics.PreferredBackBufferWidth = ScreenWidth;
         _graphics.PreferredBackBufferHeight = ScreenHeight;
+        _graphics.SynchronizeWithVerticalRetrace = true;
         _graphics.ApplyChanges();
 
         ScreenCenter = new Vector2(_graphics.PreferredBackBufferWidth / 2,
                                     _graphics.PreferredBackBufferHeight / 2);
 
-        PlayerSpeed = 0.3f;
+        PlayerSpeed = 0.25f;
 
         PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(0, 0, 70, 35));
         _entities.Add(PlayerEntity);
-        _entities.Add(new PlatformEntity(this, new RectangleF(ScreenCenter.X - 1000, ScreenCenter.Y + 100, 2000, 20)));
         foreach (IEntity entity in _entities)
         {
             _collisionComponent.Insert(entity);
@@ -70,6 +72,9 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        _tileMap = new TileMap();
+        _tileMap.LoadMap(this, _collisionComponent, "platforms.tsj", "platforms.tmj");
 
         BackgroundLayerSix = Content.Load<Texture2D>("sixth-layer");
         BackgroundLayerFive = Content.Load<Texture2D>("fifth-layer");
@@ -105,12 +110,20 @@ public class Game1 : Game
 
         _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, transformMatrix: transformMatrix);
 
-        _spriteBatch.Draw(BackgroundLayerSix, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.6F);
-        _spriteBatch.Draw(BackgroundLayerFive, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.5F);
-        _spriteBatch.Draw(BackgroundLayerFour, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.4F);
-        _spriteBatch.Draw(BackgroundLayerThree, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.3F);
-        _spriteBatch.Draw(BackgroundLayerPlatform, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.2F);
-        _spriteBatch.Draw(BackgroundLayerOne, Vector2.Zero, null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.1F);
+        Vector3 paralax = new Vector3(-1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        _spriteBatch.Draw(BackgroundLayerSix, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.6F);
+        paralax = new Vector3(0.3f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        _spriteBatch.Draw(BackgroundLayerFive, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.5F);
+        paralax = new Vector3(0.2f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        _spriteBatch.Draw(BackgroundLayerFour, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.4F);
+        paralax = new Vector3(0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        _spriteBatch.Draw(BackgroundLayerThree, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.3F);
+        //paralax = new Vector3(0f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        //_spriteBatch.Draw(BackgroundLayerPlatform, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.2F);
+        paralax = new Vector3(-0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        _spriteBatch.Draw(BackgroundLayerOne, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.1F);
+
+        _tileMap.Draw(_spriteBatch);
 
         foreach (IEntity entity in _entities)
         {

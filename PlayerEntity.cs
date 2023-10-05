@@ -53,7 +53,7 @@ public class PlayerEntity : IEntity
             _flipHorizontally ? SpriteEffects.FlipHorizontally : SpriteEffects.None,
             0.15F);
 
-        spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
+        //spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
     }
 
     public void Update(GameTime gameTime)
