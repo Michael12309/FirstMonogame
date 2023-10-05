@@ -35,7 +35,7 @@ public class PlatformEntity : IEntity
             new Vector2(0, 0),
             Vector2.One,
             SpriteEffects.None,
-            0.0F);
+            0.14F);
 
         if (IsCollidable)
         {
