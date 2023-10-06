@@ -10,36 +10,45 @@ public class PlatformEntity : IEntity
 
     // TODO: make staic?
     private Texture2D _spriteSheet;
-    private Rectangle _boundingBox;
+    private Rectangle _spriteBoundingBox;
+    private RectangleF? _collider;
+    public Vector2 Position { get; set; }
     public IShapeF Bounds { get; }
 
-    public bool IsCollidable { get; set; }
-
-    public PlatformEntity(Game1 game, RectangleF rectangleF, Texture2D spriteSheet, Rectangle boundingBox)
+    public PlatformEntity(Game1 game, Vector2 position, RectangleF? collider, Texture2D spriteSheet, Rectangle spriteBoundingBox)
     {
         _game = game;
+        Position = position;
+        _collider = collider;
+        if (_collider.HasValue)
+        {
+            _collider = new RectangleF(
+                Position.X + _collider.Value.X,
+                Position.Y + _collider.Value.Y,
+                _collider.Value.Width,
+                _collider.Value.Height);
+            Bounds = _collider.Value;
+        }
         _spriteSheet = spriteSheet;
-        _boundingBox = boundingBox;
-        Bounds = rectangleF;
-        IsCollidable = true;
+        _spriteBoundingBox = spriteBoundingBox;
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(
             _spriteSheet,
-            Bounds.Position,
-            sourceRectangle: _boundingBox,
+            Position,
+            sourceRectangle: _spriteBoundingBox,
             Color.White,
             0f,
             new Vector2(0, 0),
-            Vector2.One,
+            Constants.GameScale,
             SpriteEffects.None,
             0.14F);
 
-        if (IsCollidable)
+        if (_collider.HasValue)
         {
-            //spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
+            spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
         }
     }
 

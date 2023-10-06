@@ -50,26 +50,40 @@ public class TileMap
                     continue;
                 }
 
-
-                PlatformEntity platform = new PlatformEntity(
-                    game,
-                    new RectangleF(j * 16 * 4, i * 16 * 4, 16 * 4, 16 * 4),
-                    spriteSheet,
-                    GetBoundingBoxFromTileId(tileId));
-
-                _entities.Add(platform);
+                PlatformEntity platform;
 
                 // The Tiled sprite (tsj) file ids are off by one for some reason
                 // compared to the sprite map (tmj) file
                 TSJTileModel tile = _tileset.Tiles.Where(p => p.Id == tileId - 1).FirstOrDefault();
-                if (tile != null)
+                if (tile == null)
                 {
-                    collisionComponent.Insert(platform);
+                    // no collision data for tile
+                    platform = new PlatformEntity(
+                        game,
+                        new Vector2(j * 16 * Constants.GameScale, i * 16 * Constants.GameScale),
+                        null,
+                        spriteSheet,
+                        GetBoundingBoxFromTileId(tileId));
                 }
                 else
                 {
-                    platform.IsCollidable = false;
+                    TSJObjectModel tileCollisionData = tile.ObjectGroup.Objects.First();
+
+                    platform = new PlatformEntity(
+                        game,
+                        new Vector2(j * 16 * Constants.GameScale, i * 16 * Constants.GameScale),
+                        new RectangleF(
+                            tileCollisionData.X * Constants.GameScale,
+                            tileCollisionData.Y * Constants.GameScale,
+                            tileCollisionData.Width * Constants.GameScale,
+                            tileCollisionData.Height * Constants.GameScale),
+                        spriteSheet,
+                        GetBoundingBoxFromTileId(tileId));
+
+                    collisionComponent.Insert(platform);
                 }
+
+                _entities.Add(platform);
             }
         }
     }
@@ -77,10 +91,10 @@ public class TileMap
     private Rectangle GetBoundingBoxFromTileId(int tileId)
     {
         return new Rectangle(
-            (tileId % _tileset.Columns - 1) * 16 * 4,
-            tileId / _tileset.Columns * 16 * 4,
-            16 * 4,
-            16 * 4);
+            (tileId - 1) % _tileset.Columns * 16,
+            (tileId - 1) / _tileset.Columns * 16,
+            16,
+            16);
     }
 
     public void Draw(SpriteBatch spriteBatch)

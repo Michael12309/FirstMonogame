@@ -22,7 +22,6 @@ public class Game1 : Game
     Texture2D BackgroundLayerFive;
     Texture2D BackgroundLayerFour;
     Texture2D BackgroundLayerThree;
-    Texture2D BackgroundLayerPlatform;
     Texture2D BackgroundLayerOne;
 
     Vector2 ScreenCenter;
@@ -80,7 +79,6 @@ public class Game1 : Game
         BackgroundLayerFive = Content.Load<Texture2D>("fifth-layer");
         BackgroundLayerFour = Content.Load<Texture2D>("fourth-layer");
         BackgroundLayerThree = Content.Load<Texture2D>("third-layer");
-        BackgroundLayerPlatform = Content.Load<Texture2D>("platform-layer");
         BackgroundLayerOne = Content.Load<Texture2D>("first-layer");
     }
 
@@ -108,20 +106,19 @@ public class Game1 : Game
 
         GraphicsDevice.Clear(Color.Black);
 
-        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, transformMatrix: transformMatrix);
+        // sampleerState: PointClamp == liner upscale
+        _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp, transformMatrix: transformMatrix);
 
         Vector3 paralax = new Vector3(-1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerSix, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.6F);
+        _spriteBatch.Draw(BackgroundLayerSix, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.6F);
         paralax = new Vector3(0.3f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerFive, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.5F);
+        _spriteBatch.Draw(BackgroundLayerFive, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.5F);
         paralax = new Vector3(0.2f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerFour, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.4F);
+        _spriteBatch.Draw(BackgroundLayerFour, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.4F);
         paralax = new Vector3(0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerThree, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.3F);
-        //paralax = new Vector3(0f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        //_spriteBatch.Draw(BackgroundLayerPlatform, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.2F);
+        _spriteBatch.Draw(BackgroundLayerThree, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.3F);
         paralax = new Vector3(-0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerOne, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, 1F, SpriteEffects.None, 0.1F);
+        _spriteBatch.Draw(BackgroundLayerOne, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.1F);
 
         _tileMap.Draw(_spriteBatch);
 
