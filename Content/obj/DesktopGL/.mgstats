@@ -1,0 +1,8 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/home/michael/Desktop/Monogame/FirstGame/Content/cat-spritesheet.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/cat-spritesheet.xnb","TextureProcessor","Texture2DContent",17378,2046325,0.1440674
+"/home/michael/Desktop/Monogame/FirstGame/Content/fifth-layer.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/fifth-layer.xnb","TextureProcessor","Texture2DContent",5782,460885,0.0096756
+"/home/michael/Desktop/Monogame/FirstGame/Content/first-layer.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/first-layer.xnb","TextureProcessor","Texture2DContent",3299,460885,0.0079527
+"/home/michael/Desktop/Monogame/FirstGame/Content/fourth-layer.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/fourth-layer.xnb","TextureProcessor","Texture2DContent",6203,460885,0.0072559
+"/home/michael/Desktop/Monogame/FirstGame/Content/platforms.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/platforms.xnb","TextureProcessor","Texture2DContent",1098,80085,0.0014444
+"/home/michael/Desktop/Monogame/FirstGame/Content/sixth-layer.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/sixth-layer.xnb","TextureProcessor","Texture2DContent",937,460885,0.0084152
+"/home/michael/Desktop/Monogame/FirstGame/Content/third-layer.png","/home/michael/Desktop/Monogame/FirstGame/Content/bin/DesktopGL/third-layer.xnb","TextureProcessor","Texture2DContent",9382,460885,0.0077277

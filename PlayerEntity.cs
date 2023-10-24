@@ -84,7 +84,7 @@ public class PlayerEntity : IEntity
         if (Math.Abs(_velocity.Y) > 0f)
         {
             Animation.SetRow(2, 14);
-            int jumpProgression = (int)Math.Clamp(Math.Round(Helper.Map(_velocity.Y, -0.4f, 0.1f, 1f, 14f), 0), 1, 14);
+            int jumpProgression = (int)Math.Clamp(Math.Round(Helper.Map(_velocity.Y, -0.4f, 0.15f, 1f, 14f), 0), 1, 14);
             Animation.UpdateOverTime = false;
             Animation.SetIndex(jumpProgression);
         }
