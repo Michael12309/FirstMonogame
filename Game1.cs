@@ -31,8 +31,6 @@ public class Game1 : Game
     private readonly List<IEntity> _entities = new List<IEntity>();
     private readonly CollisionComponent _collisionComponent;
 
-    float PlayerSpeed;
-
     private TileMap _tileMap;
 
     public Game1()
@@ -53,9 +51,8 @@ public class Game1 : Game
         ScreenCenter = new Vector2(_graphics.PreferredBackBufferWidth / 2,
                                     _graphics.PreferredBackBufferHeight / 2);
 
-        PlayerSpeed = 0.25f;
-
-        PlayerEntity = new PlayerEntity(this, PlayerSpeed, new RectangleF(0, 0, 70, 35));
+        //                                                   x, y, bounding width, bounding height
+        PlayerEntity = new PlayerEntity(this, new RectangleF(200, 0, 70, 35));
         _entities.Add(PlayerEntity);
         foreach (IEntity entity in _entities)
         {

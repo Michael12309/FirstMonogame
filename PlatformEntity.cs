@@ -48,7 +48,7 @@ public class PlatformEntity : IEntity
 
         if (_collider.HasValue)
         {
-            spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
+            //spriteBatch.DrawRectangle((RectangleF)Bounds, Color.Red, 3);
         }
     }
 

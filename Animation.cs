@@ -16,11 +16,16 @@ public class Animation
 
     public int MillisecondTimeout { get; set; }
 
+    public bool UpdateOverTime { get; set; }
+    public bool Loop { get; set; }
+
     public Animation()
     {
         _millisecondTimer = 0;
         _spriteRow = 0;
         _spriteIndex = 0;
+        UpdateOverTime = true;
+        Loop = true;
     }
 
     public void LoadSpriteSheet(ContentManager content, string assetName, Rectangle spriteSize, int spriteCount)
@@ -32,24 +37,43 @@ public class Animation
 
     public void Update(GameTime gameTime)
     {
-        _millisecondTimer += gameTime.ElapsedGameTime.Milliseconds;
-        if (_millisecondTimer < MillisecondTimeout)
+        if (UpdateOverTime)
         {
-            return;
-        }
-        _millisecondTimer = 0;
+            _millisecondTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (_millisecondTimer < MillisecondTimeout)
+            {
+                return;
+            }
+            _millisecondTimer = 0;
 
-        _spriteIndex++;
-        if (_spriteIndex >= _spriteCount)
-        {
-            _spriteIndex = 0;
+            _spriteIndex++;
+            if (_spriteIndex >= _spriteCount)
+            {
+                if (Loop == true)
+                {
+                    _spriteIndex = 0;
+                }
+                else
+                {
+                    _spriteIndex = _spriteCount;
+                }
+            }
         }
         FrameBoundingBox = new Rectangle(_spriteIndex * FrameBoundingBox.Width, _spriteRow * FrameBoundingBox.Height, FrameBoundingBox.Width, FrameBoundingBox.Height);
     }
 
-    public void SetRow(int row)
+    public void SetRow(int row, int spriteCount)
     {
         _spriteRow = row;
+        _spriteCount = spriteCount;
+    }
+
+    public void SetIndex(int index)
+    {
+        if (index < _spriteCount)
+        {
+            _spriteIndex = index;
+        }
     }
 
     public void Restart()
