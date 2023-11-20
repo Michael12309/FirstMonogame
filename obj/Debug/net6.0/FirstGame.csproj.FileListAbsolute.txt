@@ -37,3 +37,6 @@
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/MonoGame.Extended.Graphics.dll
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/MonoGame.Extended.Tiled.dll
 /home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/platforms.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/layer1.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/layer2.xnb
+/home/michael/Desktop/Monogame/FirstGame/bin/Debug/net6.0/Content/layer3.xnb

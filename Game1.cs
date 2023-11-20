@@ -74,9 +74,9 @@ public class Game1 : Game
 
         BackgroundLayerSix = Content.Load<Texture2D>("sixth-layer");
         BackgroundLayerFive = Content.Load<Texture2D>("fifth-layer");
-        BackgroundLayerFour = Content.Load<Texture2D>("fourth-layer");
-        BackgroundLayerThree = Content.Load<Texture2D>("third-layer");
-        BackgroundLayerOne = Content.Load<Texture2D>("first-layer");
+        BackgroundLayerFour = Content.Load<Texture2D>("layer3");
+        BackgroundLayerThree = Content.Load<Texture2D>("layer2");
+        BackgroundLayerOne = Content.Load<Texture2D>("layer1");
     }
 
     protected override void Update(GameTime gameTime)
@@ -101,21 +101,30 @@ public class Game1 : Game
     {
         var transformMatrix = _camera.GetViewMatrix();
 
-        GraphicsDevice.Clear(Color.Black);
+        //GraphicsDevice.Clear(Color.Black);
+        GraphicsDevice.Clear(new Color(165, 172, 175, 255));
 
         // sampleerState: PointClamp == liner upscale
         _spriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp, transformMatrix: transformMatrix);
 
-        Vector3 paralax = new Vector3(-1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerSix, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.6F);
-        paralax = new Vector3(0.3f, 0f, 0f) * _camera.GetViewMatrix().Translation;
-        _spriteBatch.Draw(BackgroundLayerFive, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.5F);
-        paralax = new Vector3(0.2f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // Vector3 paralax = new Vector3(-1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // _spriteBatch.Draw(BackgroundLayerSix, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.6F);
+        // paralax = new Vector3(0.3f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // _spriteBatch.Draw(BackgroundLayerFive, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.5F);
+        // paralax = new Vector3(0.2f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // _spriteBatch.Draw(BackgroundLayerFour, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.4F);
+        // paralax = new Vector3(0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // _spriteBatch.Draw(BackgroundLayerThree, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.3F);
+        // paralax = new Vector3(-0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
+        // _spriteBatch.Draw(BackgroundLayerOne, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.1F);
+
+        Vector3 paralax = new Vector3(0.2f, 0f, 0f) * _camera.GetViewMatrix().Translation;
         _spriteBatch.Draw(BackgroundLayerFour, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.4F);
         paralax = new Vector3(0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
         _spriteBatch.Draw(BackgroundLayerThree, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.3F);
         paralax = new Vector3(-0.1f, 0f, 0f) * _camera.GetViewMatrix().Translation;
         _spriteBatch.Draw(BackgroundLayerOne, new Vector2(paralax.X, paralax.Y), null, Color.White, 0F, Vector2.Zero, Constants.GameScale, SpriteEffects.None, 0.1F);
+
 
         _tileMap.Draw(_spriteBatch);
 
